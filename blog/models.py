@@ -9,15 +9,29 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    image = models.ImageField(null=True, max_length=255)
+
 
     def publish(self):
         self.published_date = timezone.now()
         self.save()
 
-    def __str__(self):
+    def str(self):
         return self.title
 
-class item(models.Model):
+
+class Image(models.Model):
+    title = models.CharField(max_length= 255, blank=False, null=False)
+    image = models.ImageField(upload_to='images/', null=True, max_length=255)
+
+    def repr(self):
+        return 'Image(%s, %s)' % (self.title, self.image)
+
+    def str (self):
+        return self.title
+
+class Item(models.Model):
     name= models.CharField(max_length=200)
     body= models.TextField(max_length=500)
+
     date= models.DateTimeField(default=timezone.now)
